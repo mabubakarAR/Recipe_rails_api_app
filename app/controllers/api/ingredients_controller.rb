@@ -1,3 +1,4 @@
+require 'unitwise'
 class Api::IngredientsController < Api::BaseController
   # jitera-anchor-dont-touch: before_action_filter
 
@@ -45,4 +46,34 @@ class Api::IngredientsController < Api::BaseController
 
     @ingredients = Ingredient.all
   end
+
+  # Desc                  Create weight converter API
+  # Route                 POST  /api/convert_weight
+  # Access                Public
+  # Body                  { "recipe_id": "1", "convert_to_unit": "teaspoons" }
+
+  def weight_converter
+    original_unit = params[:original_unit]
+    convert_to_unit = params[:convert_to_unit]
+    recipe_id = params[:recipe_id]
+    amount = params[:amount]
+
+    @ingredient =  Ingredient.find_by_recipe_id recipe_id
+    original_unit = @ingredient.unit
+    amount = @ingredient.amount
+    old_ingredient = do_convert(amount, original_unit)
+    old_ingredient.convert_to(convert_to_unit)
+    
+    if @ingredient.save
+      render json: {success: false, message: "Converted successfully", data: old_ingredient }
+    else
+      render json: {success: false, message: old_ingredient.errors.message, data: {} }
+    end
+    
+  end
+
+  def do_convert(amount, original_unit)
+    Unitwise(amount, original_unit)
+  end
+
 end

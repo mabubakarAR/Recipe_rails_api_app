@@ -19,27 +19,33 @@ use_doorkeeper
   get '/health' => 'pages#health_check'
 
   namespace :api do
-put '/users_passwords', to: 'users_passwords#put_users_passwords'
-resources :users_registrations, only: [:create] do
- end
+    put '/users_passwords', to: 'users_passwords#put_users_passwords'
+    post '/convert_weight', to: 'ingredients#weight_converter'
+    resources :users_registrations, only: [:create] do
+    end
 
-resources :users_verify_reset_password_requests, only: [:create] do
- end
+    resources :users_verify_reset_password_requests, only: [:create] do
+    end
 
-resources :users_reset_password_requests, only: [:create] do
- end
+    resources :users_reset_password_requests, only: [:create] do
+    end
 
-resources :users_sessions, only: [:create] do
- end
+    resources :users_sessions, only: [:create] do
+    end
 
-resources :ingredients, only: [:index, :create, :show, :update, :destroy] do
- end
+    resources :ingredients, only: [:index, :create, :show, :update, :destroy] do
+    end
 
-resources :categories, only: [:index, :create, :show, :update, :destroy] do
- end
+    resources :categories, only: [:index, :create, :show, :update, :destroy] do
+    end
 
-resources :recipes, only: [:index, :create, :show, :update, :destroy] do
- end
+    resources :recipes, only: [:index, :create, :show, :update, :destroy] do
+      member do
+        post :reviews, to: 'reviews#create'
+      end
+    end
+
+    resources :reviews
 
   end
 

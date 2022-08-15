@@ -26,7 +26,7 @@ if @categories.present?
     end
 
     json.description category.description
-    json.category_id category.category_id
+    json.category_id category.id
   end
 else
   json.error_message @error_message

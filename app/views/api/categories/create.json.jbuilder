@@ -26,7 +26,7 @@ if @error_object.blank?
     end
 
     json.description @category.description
-    json.category_id @category.category_id
+    json.category_id @category.id
   end
 else
   json.error_object @error_object

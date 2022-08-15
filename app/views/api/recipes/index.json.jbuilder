@@ -1,3 +1,4 @@
+json.count @recipes.count rescue 0
 if @recipes.present?
   json.recipes @recipes do |recipe|
     json.id recipe.id
@@ -16,6 +17,14 @@ if @recipes.present?
       json.unit ingredient.unit
       json.amount ingredient.amount
       json.recipe_id ingredient.recipe_id
+    end
+
+    json.reviews_count recipe.reviews.count 
+    json.reviews recipe.reviews do |review|
+      json.id review.id
+      json.rating review.rating
+      json.comment review.comment
+      json.user review.user.email
     end
 
     json.user_id recipe.user_id
