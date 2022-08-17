@@ -6,7 +6,7 @@ class Ingredient < ApplicationRecord
   belongs_to :recipe
 
   # jitera-anchor-dont-touch: enum
-  enum unit: %w[cup teaspoons gram kilogram], _suffix: true
+  enum unit: %w[cup teaspoon gram kilogram], _suffix: true
 
   # jitera-anchor-dont-touch: file
 

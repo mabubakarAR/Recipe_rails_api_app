@@ -47,6 +47,12 @@ class Api::RecipesController < Api::BaseController
 
   # Send query params to get filtered data. These params are optional like 
   # /api/recipes?title=personal&difficulty=easy
+  
+  # send data in query params for filters accordingly.
+  # difficulty = String e.g difficulty=easy
+  # title = String e.g title=personal
+  # To filter for time, start_time = string e.g 10mins, 1hour 10mins, and end_time = 15mins, 1hour 15mins
+
   def index
     # This will fetch all user without query parameters(filters)
     @recipes = Recipe.all
